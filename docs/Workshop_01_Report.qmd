@@ -30,3 +30,10 @@ max(coral_diameters)
 ## Conclusion
 
 R can be used to organise and summarise numerical measurements relevant to marine science.
+
+
+```{r}
+#| message: false
+#| warning: false
+source("../code/Workshop_01.R")
+```
