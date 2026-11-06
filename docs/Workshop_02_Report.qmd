@@ -1,0 +1,83 @@
+
+---
+title: "MB5370 - Workshop 2: Data Visualisation"
+author: "Trisha Waghela"
+format: html
+---
+
+## Introduction
+
+This report demonstrates data visualisation techniques in R using illustrative coral colony measurements. The data are simulated for programming practice and do not represent field observations.
+
+## Prepare the Data
+
+```{r}
+library(ggplot2)
+
+coral_df <- data.frame(
+  Colony = 1:5,
+  Diameter_cm = c(12.5, 15.2, 10.8, 18.4, 14.1),
+  Genus = c("Acropora", "Porites", "Acropora",
+            "Montipora", "Porites")
+)
+```
+
+## Scatter Plot
+
+```{r}
+ggplot(coral_df, aes(x = Colony, y = Diameter_cm)) +
+  geom_point(color = "blue", size = 3) +
+  labs(
+    title = "Coral Colony Diameters",
+    x = "Colony Number",
+    y = "Diameter (cm)"
+  ) +
+  theme_minimal()
+```
+
+## Histogram
+
+```{r}
+ggplot(coral_df, aes(x = Diameter_cm)) +
+  geom_histogram(
+    binwidth = 2,
+    fill = "lightblue",
+    color = "black"
+  ) +
+  labs(
+    title = "Distribution of Coral Diameters",
+    x = "Diameter (cm)",
+    y = "Frequency"
+  ) +
+  theme_classic()
+```
+
+## Boxplot
+
+```{r}
+ggplot(coral_df, aes(x = "All colonies", y = Diameter_cm)) +
+  geom_boxplot(fill = "lightgreen") +
+  labs(
+    title = "Coral Diameter Distribution",
+    x = NULL,
+    y = "Diameter (cm)"
+  ) +
+  theme_classic()
+```
+
+## Bar Chart
+
+```{r}
+ggplot(coral_df, aes(x = Genus)) +
+  geom_bar(fill = "lightblue", color = "black") +
+  labs(
+    title = "Number of Colonies by Coral Genus",
+    x = "Coral Genus",
+    y = "Number of Colonies"
+  ) +
+  theme_minimal()
+```
+
+## Conclusion
+
+R and ggplot2 provide tools for exploring numerical and categorical marine science data through different graphical representations.

@@ -1,0 +1,32 @@
+
+---
+title: "MB5370 - Workshop 1: Introduction to R"
+author: "Trisha Waghela"
+format: html
+---
+
+## Introduction
+
+This report demonstrates basic R programming skills using an illustrative dataset of coral colony measurements.
+
+## Coral Colony Measurements
+
+The following R code creates a vector containing five example coral colony diameters measured in centimetres.
+
+```{r}
+coral_diameters <- c(12.5, 15.2, 10.8, 18.4, 14.1)
+
+coral_diameters
+```
+
+## Summary Statistics
+
+```{r}
+mean(coral_diameters)
+min(coral_diameters)
+max(coral_diameters)
+```
+
+## Conclusion
+
+R can be used to organise and summarise numerical measurements relevant to marine science.
