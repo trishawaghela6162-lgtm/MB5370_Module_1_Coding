@@ -99,4 +99,6 @@ ggsave(
   units = "in",
   dpi = 300
 )
+# Calculate the average coral colony diameter
+average_diameter <- mean(coral_diameters)
 
