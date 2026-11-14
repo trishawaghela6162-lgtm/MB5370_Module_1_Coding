@@ -223,30 +223,6 @@ scaled_abundance <- purrr::map2_dbl(
 print(scaled_abundance)
 ```
 ```{r}
-clean_and_classify_survey <- function(data, column, threshold) {
-  if (!column %in% names(data)) {
-    stop("Column not found.")
-  }
-
-  data %>%
-    tidyr::drop_na(dplyr::all_of(column)) %>%
-    mutate(
-      classification = if_else(
-        .data[[column]] > threshold,
-        "High",
-        "Low"
-      )
-    )
-}
-
-survey <- tibble(
-  site = c("A", "B", "C", "D"),
-  coral_cover = c(20, 65, NA, 80)
-)
-
-clean_and_classify_survey(survey, "coral_cover", 50)
-```
-```{r}
 
 ```
 
