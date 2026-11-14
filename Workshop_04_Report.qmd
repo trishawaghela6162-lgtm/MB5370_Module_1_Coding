@@ -1,0 +1,252 @@
+---
+title: "Workshop 4 – The Developer's Toolbox & AI"
+author: "Trisha Waghela"
+format: html
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this 
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+  
+```{r}
+# Load tidyverse and palmerpenguins libraries
+  
+```
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+```{r}
+# Create a ggplot scatter plot using the penguins dataset.
+# Plot bill_length_mm on the x-axis and bill_depth_mm on the y-axis.
+# Color points by species and use geom_point with size 3.
+# Add a minimal theme and clean labels.
+ggplot(data = penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point(size = 3) +
+  theme_minimal() +
+  labs(
+    title = "Bill Length vs Bill Depth in Penguins",
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    color = "Species"
+  )
+```
+```{r}
+# Create a boxplot using the penguins dataset.
+# Compare flipper_length_mm across different species.
+# Facet the plot by island.
+# Use a custom colour palette and theme_minimal().
+ggplot(data = penguins, aes(x = species, y = flipper_length_mm, fill = species)) +
+  geom_boxplot() +
+  facet_wrap(~ island) +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal() +
+  labs(
+    title = "Flipper Length Distribution by Species and Island",
+    x = "Species",
+    y = "Flipper Length (mm)",
+    fill = "Species"
+  )
+```
+
+```{r}
+## GitHub Copilot Reflection
+
+##I used GitHub Copilot to generate two visualisations using the Palmer Penguins dataset: a scatterplot comparing bill length and bill depth, and a boxplot comparing flipper length across species and islands.
+
+##I reviewed the generated code, executed both plots, and checked that the visualisations displayed correctly. This demonstrated how AI-assisted coding can support data exploration while still requiring human verification.
+```
+
+```{r}
+sst <- 30.2
+
+if (sst > 29.5) {
+  print("Warning: Marine heatwave threshold exceeded!")
+} else {
+  print("SST remains within baseline parameters.")
+}
+```
+```{r}
+coral_monitoring <- tibble(
+  site = c("Site_A", "Site_B", "Site_C"),
+  depth_m = c(12, 35, 8)
+)
+
+coral_monitoring <- coral_monitoring %>%
+  mutate(
+    zone = if_else(depth_m > 30, "Deep Reef", "Shallow Reef")
+  )
+
+print(coral_monitoring)
+```
+```{r}
+coral_monitoring <- coral_monitoring %>%
+  mutate(
+    zone = case_when(
+      depth_m < 10 ~ "Lagoon/Flats",
+      depth_m <= 30 ~ "Crest/Slope",
+      depth_m > 30 ~ "Mesophotic/Deep",
+      TRUE ~ "Unclassified"
+    )
+  )
+
+print(coral_monitoring)
+```
+```{r}
+marine_stations <- tibble(
+  station = c("A", "B", "C", "D"),
+  salinity = c(35, 28, 32, 12)
+)
+
+marine_stations <- marine_stations %>%
+  mutate(
+    environment_type = case_when(
+      salinity < 15 ~ "Estuarine",
+      salinity <= 30 ~ "Brackish",
+      salinity > 30 ~ "Marine"
+    )
+  )
+
+print(marine_stations)
+```
+'''
+## Understanding the Code
+
+**What does mutate() do?**
+
+The mutate() function creates or modifies columns in a dataset.
+
+**What does %>% do?**
+
+The pipe operator passes the result of one operation to the next function.
+
+**How can we access help?**
+
+Type `?dplyr::mutate` in the RStudio Console to access documentation.
+```{r}
+for (year in 2020:2024) {
+  print(paste("Monitoring year:", year))
+}
+```
+```{r}
+transect_lengths <- c(50, 100, 25, 75)
+
+for (i in seq_along(transect_lengths)) {
+  print(paste(
+    "Transect", i,
+    "length:", transect_lengths[i], "metres"
+  ))
+}
+```
+```{r}
+library(purrr)
+
+site_areas <- c(144, 400, 625)
+
+site_lengths <- map_dbl(site_areas, sqrt)
+
+print(site_lengths)
+```
+```{r}
+iris %>%
+  split(.$Species) %>%
+  map(~ summary(.x))
+```
+```{r}
+fish_counts <- list(
+  Site_A = c(12, 15, 18),
+  Site_B = c(8, 10, 12),
+  Site_C = c(20, 25, 30)
+)
+
+for (site in names(fish_counts)) {
+  print(paste(site, "Mean:", mean(fish_counts[[site]])))
+}
+
+map_dbl(fish_counts, mean)
+```
+```{r}
+calculate_coral_mortality <- function(initial_count, surviving_count) {
+  if (initial_count <= 0) {
+    stop("Initial count must be greater than zero.")
+  }
+
+  mortality <- (initial_count - surviving_count) / initial_count
+  return(mortality)
+}
+
+calculate_coral_mortality(120, 84)
+```
+```{r}
+convert_temp_c_to_f <- function(temp_c) {
+  if (temp_c < -273.15) {
+    stop("Temperature cannot be below absolute zero.")
+  }
+
+  temp_f <- (temp_c * 9/5) + 32
+  return(temp_f)
+}
+
+convert_temp_c_to_f(25)
+```
+```{r}
+#| error: true
+convert_temp_c_to_f(-300)
+```
+```{r}
+fish_counts <- c(15, 24, 8, 42)
+scaling_factors <- c(1.2, 0.8, 2.5, 1.1)
+
+scaled_abundance <- purrr::map2_dbl(
+  fish_counts,
+  scaling_factors,
+  ~ .x * .y
+)
+
+print(scaled_abundance)
+```
+```{r}
+clean_and_classify_survey <- function(data, column, threshold) {
+  if (!column %in% names(data)) {
+    stop("Column not found.")
+  }
+
+  data %>%
+    tidyr::drop_na(dplyr::all_of(column)) %>%
+    mutate(
+      classification = if_else(
+        .data[[column]] > threshold,
+        "High",
+        "Low"
+      )
+    )
+}
+
+survey <- tibble(
+  site = c("A", "B", "C", "D"),
+  coral_cover = c(20, 65, NA, 80)
+)
+
+clean_and_classify_survey(survey, "coral_cover", 50)
+```
+```{r}
+
+```
+
